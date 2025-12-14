@@ -5,6 +5,7 @@ const morgan = require("morgan");
 
 const app = express();
 
+app.use("/api/webhooks", require("./routes/webhook.routes"));
 
 app.use(cors());
 app.use(express.json());
@@ -25,6 +26,8 @@ app.use("/api/seller", require("./routes/seller.routes"));
 app.use("/api/products", require("./routes/product.routes"));
 // Commande 
 app.use("/api/orders", require("./routes/order.routes"));
+//Paiement
+app.use("/api/payments", require("./routes/payment.routes"));
 
 
 

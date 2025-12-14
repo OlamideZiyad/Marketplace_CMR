@@ -11,6 +11,9 @@ module.exports = (sequelize) => {
       type: DataTypes.ENUM("pending", "paid", "shipped", "cancelled"),
       defaultValue: "pending",
     },
+    paymentIntentId: {
+   type: DataTypes.STRING,
+    },
     totalAmount: {
       type: DataTypes.FLOAT,
       allowNull: false,
