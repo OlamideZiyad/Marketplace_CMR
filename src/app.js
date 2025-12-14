@@ -23,6 +23,9 @@ app.use("/api/users", require("./routes/user.routes"));
 app.use("/api/seller", require("./routes/seller.routes"));
 //Product
 app.use("/api/products", require("./routes/product.routes"));
+// Commande 
+app.use("/api/orders", require("./routes/order.routes"));
+
 
 
 module.exports = app;
