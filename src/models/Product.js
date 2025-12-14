@@ -20,6 +20,10 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
+    images: {
+  type: DataTypes.JSON,
+  defaultValue: [],
+},
     isActive: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
