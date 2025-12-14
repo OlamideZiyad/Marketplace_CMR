@@ -21,6 +21,8 @@ app.use("/api/auth", require("./routes/auth.routes"));
 app.use("/api/users", require("./routes/user.routes"));
 //seller 
 app.use("/api/seller", require("./routes/seller.routes"));
+//Product
+app.use("/api/products", require("./routes/product.routes"));
 
 
 module.exports = app;
