@@ -17,20 +17,26 @@ exports.stripeWebhook = async (req, res) => {
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
-  if (event.type === "payment_intent.succeeded") {
-    const paymentIntent = event.data.object;
-    const orderId = paymentIntent.metadata.orderId;
+  
+if (event.type === "payment_intent.succeeded") {
+  const paymentIntent = event.data.object;
+  const orderId = paymentIntent.metadata?.orderId;
 
-    await Order.update(
-      { status: "paid" },
-      { where: { id: orderId } }
-    );
-
-    await emailQueue.add("orderPaid", {
-      email: "client@email.com",
-      orderId,
-    });
+  if (!orderId) {
+    console.log("⚠️ PaymentIntent sans orderId, ignoré");
+    return res.json({ received: true });
   }
+
+  await Order.update(
+    { status: "paid" },
+    { where: { id: orderId } }
+  );
+
+  await emailQueue.add("orderPaid", {
+    email: "client@email.com",
+    orderId,
+  });
+}
 
   res.json({ received: true });
 };

@@ -9,9 +9,14 @@ exports.createPaymentIntent = async (req, res) => {
       return res.status(404).json({ message: "Order not found" });
     }
 
+    // 🔒 Vérification si la commande est déjà payée
+    if (order.status === "paid") {
+      return res.status(400).json({ message: "Order already paid" });
+    }
+
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(order.totalAmount * 100),
-      currency: "eur",
+      currency: "xaf",
+      amount: order.totalAmount * 100, // si total en XAF
       metadata: { orderId: order.id },
     });
 

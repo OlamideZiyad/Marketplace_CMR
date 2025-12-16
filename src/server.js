@@ -10,8 +10,6 @@ const PORT = process.env.PORT || 5000;
     await db.sequelize.authenticate();
     console.log("Database connected successfully");
 
-    await db.sequelize.sync(/* { alter: true }** */);
-    console.log("Tables synchronized");
 
 app.listen(PORT, () => {
   console.log(`Le serveur a demarer sur : http://localhost:${PORT}`);
