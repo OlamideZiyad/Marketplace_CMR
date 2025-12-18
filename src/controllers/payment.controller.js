@@ -29,3 +29,37 @@ exports.createPaymentIntent = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+
+exports.payOrder = async (req, res) => {
+  try {
+    const order = await Order.findByPk(req.params.id);
+
+    if (!order || order.buyerId !== req.user.id) {
+      return res.status(404).json({ message: "Order not found" });
+    }
+
+    if (order.status === "paid") {
+      return res.status(400).json({ message: "Order already paid" });
+    }
+
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: Math.round(order.totalAmount * 100),
+      currency: "xaf",
+      metadata: {
+        orderId: order.id,
+        buyerId: req.user.id,
+      },
+    });
+
+    await order.update({
+      paymentIntentId: paymentIntent.id,
+    });
+
+    res.json({
+      clientSecret: paymentIntent.client_secret,
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};

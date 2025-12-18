@@ -21,19 +21,27 @@ module.exports = (sequelize) => {
       defaultValue: 0,
     },
     images: {
-  type: DataTypes.JSON,
-  defaultValue: [],
-},
+      type: DataTypes.JSON,
+      defaultValue: [],
+    },
     isActive: {
       type: DataTypes.BOOLEAN,
       defaultValue: true,
     },
   });
 
+  //associations
   Product.associate = (models) => {
     Product.belongsTo(models.User, {
       as: "seller",
       foreignKey: "sellerId",
+    });
+
+    Product.belongsTo(models.Category, {
+      as: "category",
+      foreignKey: "categoryId",
+      onDelete: "RESTRICT",
+      onUpdate: "CASCADE",
     });
   };
 
