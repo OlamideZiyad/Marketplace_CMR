@@ -1,0 +1,219 @@
+{
+  "info": {
+    "name": "Marketplace - Categories API",
+    "description": "Collection complète pour tester les endpoints des catégories",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3000/api/v1",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Categories",
+      "item": [
+        {
+          "name": "1. Create Category (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Électronique\",\n  \"slug\": \"electronique\",\n  \"description\": \"Produits électroniques et high-tech\",\n  \"imageUrl\": \"https://example.com/images/electronique.jpg\",\n  \"metadata\": {\n    \"color\": \"#3B82F6\",\n    \"icon\": \"laptop\",\n    \"order\": 1\n  },\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "2. Create Subcategory (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Smartphones\",\n  \"slug\": \"smartphones\",\n  \"description\": \"Téléphones portables Android et iOS\",\n  \"parentId\": \"REMPLACER_PAR_ID_CATEGORIE_PARENTE\",\n  \"imageUrl\": \"https://example.com/images/smartphones.jpg\",\n  \"metadata\": {\n    \"order\": 1\n  },\n  \"isActive\": true\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories",
+              "host": ["{{base_url}}"],
+              "path": ["categories"]
+            }
+          }
+        },
+        {
+          "name": "3. Get All Categories",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories?page=1&limit=20",
+              "host": ["{{base_url}}"],
+              "path": ["categories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "key": "limit",
+                  "value": "20"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "4. Get All Categories (With Filters)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories?page=1&limit=10&search=électro&isActive=true&parentId=null&includeSubcategories=true",
+              "host": ["{{base_url}}"],
+              "path": ["categories"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Numéro de page"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Nombre d'éléments par page"
+                },
+                {
+                  "key": "search",
+                  "value": "électro",
+                  "description": "Recherche par nom"
+                },
+                {
+                  "key": "isActive",
+                  "value": "true",
+                  "description": "Filtrer par statut actif"
+                },
+                {
+                  "key": "parentId",
+                  "value": "null",
+                  "description": "Filtrer par catégorie parente (null = catégories principales)"
+                },
+                {
+                  "key": "includeSubcategories",
+                  "value": "true",
+                  "description": "Inclure les sous-catégories"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "5. Get Category Tree",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/tree",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "tree"]
+            }
+          }
+        },
+        {
+          "name": "6. Get Category by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/REMPLACER_PAR_ID_CATEGORIE",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "REMPLACER_PAR_ID_CATEGORIE"]
+            }
+          }
+        },
+        {
+          "name": "7. Get Category by Slug",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/slug/electronique",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "slug", "electronique"]
+            }
+          }
+        },
+        {
+          "name": "8. Update Category (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Électronique & High-Tech\",\n  \"description\": \"Tous les produits électroniques et high-tech\",\n  \"metadata\": {\n    \"color\": \"#2563EB\",\n    \"icon\": \"laptop\",\n    \"order\": 1,\n    \"featured\": true\n  }\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories/REMPLACER_PAR_ID_CATEGORIE",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "REMPLACER_PAR_ID_CATEGORIE"]
+            }
+          }
+        },
+        {
+          "name": "9. Deactivate Category (Admin)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"isActive\": false\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/categories/REMPLACER_PAR_ID_CATEGORIE",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "REMPLACER_PAR_ID_CATEGORIE"]
+            }
+          }
+        },
+        {
+          "name": "10. Delete Category (Admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/categories/REMPLACER_PAR_ID_CATEGORIE",
+              "host": ["{{base_url}}"],
+              "path": ["categories", "REMPLACER_PAR_ID_CATEGORIE"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -2,6 +2,16 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
+// Importer les routes existantes
+const authRoutes = require('./routes/auth.routes');
+const userRoutes = require('./routes/user.routes');
+const productRoutes = require('./routes/product.routes');
+const orderRoutes = require('./routes/order.routes');
+const paymentRoutes = require('./routes/payment.routes');
+const sellerRoutes = require('./routes/seller.routes');
+const webhookRoutes = require('./routes/webhook.routes');
+const categoryRoutes = require('./routes/category.routes');
+
 
 const app = express();
 
@@ -16,18 +26,14 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "OK", message: "API is running !" });
 });
 // Routes principales
-//auth
-app.use("/api/auth", require("./routes/auth.routes"));
-//user
-app.use("/api/users", require("./routes/user.routes"));
-//seller 
-app.use("/api/seller", require("./routes/seller.routes"));
-//Product
-app.use("/api/products", require("./routes/product.routes"));
-// Commande 
-app.use("/api/orders", require("./routes/order.routes"));
-//Paiement
-app.use("/api/payments", require("./routes/payment.routes"));
+app.use('/api/auth', authRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/orders', orderRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/sellers', sellerRoutes);
+app.use('/api/webhooks', webhookRoutes);
+app.use('/api/categories', categoryRoutes);
 
 
 

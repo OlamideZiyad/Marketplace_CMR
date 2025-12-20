@@ -1,7 +1,7 @@
-'use strict';
 
+const { DataTypes } = require("sequelize");
 
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize) => {
   const Category = sequelize.define('Category', {
     id: {
       type: DataTypes.UUID,
@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.JSON,
       allowNull: true,
       defaultValue: {},
-      comment: 'Données additionnelles (ex: {color: "#FF5733", icon: "phone", order: 1})'
+      comment: 'Données additionnelles (ex: {color: "#FF573(rouge)3", icon: "phone", order: 1})'
     },
     isActive: {
       type: DataTypes.BOOLEAN,
@@ -98,7 +98,7 @@ module.exports = (sequelize, DataTypes) => {
     // Une catégorie a plusieurs produits
     Category.hasMany(models.Product, {
       foreignKey: 'categoryId',
-      onDelete: 'RESTRICT', // Empêche la suppression si des produits existent
+      onDelete: 'RESTRICT', 
       onUpdate: 'CASCADE'
     });
   };
