@@ -1,7 +1,9 @@
+'use strict';
+
 const jwt = require("jsonwebtoken");
 const { User } = require("../models");
 
-exports.protect = async (req, res, next) => {
+module.exports = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
 
@@ -17,7 +19,7 @@ exports.protect = async (req, res, next) => {
       return res.status(401).json({ message: "User not found" });
     }
 
-    req.user = user;
+    req.user = user; // 👈 utilisé par authorize()
     next();
   } catch (error) {
     return res.status(401).json({ message: "Invalid token" });

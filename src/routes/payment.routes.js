@@ -1,11 +1,12 @@
 const express = require("express");
 const router = express.Router();
-const { protect } = require("../middlewares/auth.middleware");
+const authMiddleware = require("../middlewares/auth.middleware");
+
 const paymentController = require("../controllers/payment.controller");
 
 router.post(
   "/:orderId",
-  protect,
+  authMiddleware,
   paymentController.createPaymentIntent
 );
 

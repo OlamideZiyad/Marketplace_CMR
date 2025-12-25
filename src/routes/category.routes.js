@@ -12,8 +12,8 @@ const {
   deleteCategory
 } = require('../controllers/category.controller');
 const categoryValidator = require('../middlewares/validators/category.validator');
-const { protect } = require("../middlewares/auth.middleware");
-const { isSeller, isAdmin } = require("../middlewares/role.middleware");
+const authMiddleware = require("../middlewares/auth.middleware");
+const authorize = require('../middlewares/authorize');
 
 
 /**
@@ -50,8 +50,8 @@ router.get(
 // Créer une catégorie
 router.post(
   '/',
-  protect,
- isAdmin,
+  authMiddleware,
+ authorize("admin"),
   categoryValidator.validateCreate(),
   createCategory
 );
@@ -59,8 +59,8 @@ router.post(
 // Mettre à jour une catégorie
 router.put(
   '/:id',
-  protect,
- isAdmin,
+  authMiddleware,
+ authorize("admin"),
   categoryValidator.validateUpdate(),
   updateCategory
 );
@@ -68,8 +68,8 @@ router.put(
 // Supprimer une catégorie
 router.delete(
   '/:id',
-  protect,
- isAdmin,
+  authMiddleware,
+ authorize("admin"),
   categoryValidator.validateDelete(),
   deleteCategory
 );

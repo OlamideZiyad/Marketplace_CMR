@@ -61,24 +61,3 @@ exports.deleteProduct = async (req, res) => {
   }
 };
 
-// Upload product image
-exports.uploadProductImage = async (req, res) => {
-  try {
-    const product = await Product.findOne({
-      where: { id: req.params.id, sellerId: req.user.id },
-    });
-
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
-    const imageUrl = req.file.path;
-
-    const images = [...product.images, imageUrl];
-    await product.update({ images });
-
-    res.json({ images });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
