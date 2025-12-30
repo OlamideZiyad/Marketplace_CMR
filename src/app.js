@@ -11,6 +11,8 @@ const paymentRoutes = require('./routes/payment.routes');
 const sellerRoutes = require('./routes/seller.routes');
 const webhookRoutes = require('./routes/webhook.routes');
 const categoryRoutes = require('./routes/category.routes');
+const addressRoutes = require('./routes/address.routes');
+
 
 
 const app = express();
@@ -34,7 +36,7 @@ app.use('/api/payments', paymentRoutes);
 app.use('/api/sellers', sellerRoutes);
 app.use('/api/webhooks', webhookRoutes);
 app.use('/api/categories', categoryRoutes);
-
+app.use('/api/addresses', addressRoutes); 
 
 
 module.exports = app;

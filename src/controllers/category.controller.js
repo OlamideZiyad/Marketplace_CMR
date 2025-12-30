@@ -3,10 +3,7 @@
 const { Category, Product } = require('../models');
 const { Op } = require('sequelize');
 
-/**
- * Créer une nouvelle catégorie (Admin uniquement)
- * POST /api/v1/categories
- */
+
 const createCategory = async (req, res) => {
   try {
     const { name, slug, description, parentId, imageUrl, metadata, isActive } = req.body;
@@ -57,10 +54,6 @@ const createCategory = async (req, res) => {
   }
 };
 
-/**
- * Récupérer toutes les catégories (avec filtres et pagination)
- * GET /api/v1/categories
- */
 const getAllCategories = async (req, res) => {
   try {
     const {
@@ -141,10 +134,6 @@ const getAllCategories = async (req, res) => {
   }
 };
 
-/**
- * Récupérer les catégories principales (sans parent) avec leurs sous-catégories
- * GET /api/v1/categories/tree
- */
 const getCategoryTree = async (req, res) => {
   try {
     const categories = await Category.findAll({
@@ -183,10 +172,6 @@ const getCategoryTree = async (req, res) => {
   }
 };
 
-/**
- * Récupérer une catégorie par ID
- * GET /api/v1/categories/:id
- */
 const getCategoryById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -236,11 +221,6 @@ const getCategoryById = async (req, res) => {
     });
   }
 };
-
-/**
- * Récupérer une catégorie par slug
- * GET /api/v1/categories/slug/:slug
- */
 const getCategoryBySlug = async (req, res) => {
   try {
     const { slug } = req.params;
@@ -292,10 +272,6 @@ const getCategoryBySlug = async (req, res) => {
   }
 };
 
-/**
- * Mettre à jour une catégorie (Admin uniquement)
- * PUT /api/v1/categories/:id
- */
 const updateCategory = async (req, res) => {
   try {
     const { id } = req.params;
@@ -372,11 +348,6 @@ const updateCategory = async (req, res) => {
     });
   }
 };
-
-/**
- * Supprimer une catégorie (Admin uniquement)
- * DELETE /api/v1/categories/:id
- */
 const deleteCategory = async (req, res) => {
   try {
     const { id } = req.params;

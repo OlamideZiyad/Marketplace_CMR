@@ -99,7 +99,7 @@ module.exports = (sequelize) => {
     Category.hasMany(models.Product, {
       foreignKey: 'categoryId',
       onDelete: 'RESTRICT', 
-      onUpdate: 'CASCADE'
+      onUpdate: 'CASCADE' 
     });
   };
 

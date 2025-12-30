@@ -7,22 +7,47 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    name: DataTypes.STRING,
+
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+
     email: {
       type: DataTypes.STRING,
       unique: true,
       allowNull: false,
     },
-    password: DataTypes.STRING,
+
+    password: {
+    type: DataTypes.STRING,
+    allowNull : false  
+    },
+    
     role: {
       type: DataTypes.ENUM("buyer", "seller", "admin"),
       defaultValue: "buyer",
     },
   });
 
-  User.associate = (models) => {
-    User.hasOne(models.SellerProfile, { foreignKey: "userId" });
-  };
+User.associate = function(models) {
+  // Relations existantes
+  User.hasOne(models.SellerProfile, {
+    foreignKey: 'userId',
+    as: 'sellerProfile'
+  });
 
-  return User;
+  User.hasMany(models.Order, {
+    foreignKey: 'buyerId',
+    as: 'orders'
+  });
+
+  User.hasMany(models.Address, {
+    foreignKey: 'userId',
+    as: 'addresses',
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE'
+  });
+};
+return User;
 };
